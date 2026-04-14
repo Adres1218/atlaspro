@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Başkent Yapı Market - Konya meram Şubesi - selcuklu Şubesi hizmetinizdeyiz</title>
+  <meta name="description" content="Konya'nın en hızlı inşaat marketi. 2 şubede hizmet. Alçı, bims, kum, beton. 0546-661-9657" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    /* ===== CSS DEĞİŞKENLERİ ===== */
+    :root {
+      --primary: #d62828;
+      --primary-dark: #a51c1c;
+      --accent: #f77f00;
+      --dark: #0a0a0a;
+      --light: #f8f9fa;
+      --text: #e0e0e0;
+      --bg: #000011;
+      --star: #ffffff;
+      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      --shadow-md: 0 8px 25px rgba(0,0,0,0.3);
+      --shadow-lg: 0 15px 35px rgba(0,0,0,0.4);
+      --border-radius: 16px;
+    }
+
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ===== UZAYLI ARKA PLAN ANİMASYONU ===== */
+    .space-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, #000022 0%, #000011 70%);
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .star {
+      position: absolute;
+      background: var(--star);
+      border-radius: 50%;
+      animation: twinkle linear infinite;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, #f77f00, #d62828);
+      box-shadow: 0 0 30px rgba(247, 127, 0, 0.5);
+      animation: floatOrbit 30s infinite linear;
+    }
+
+    @keyframes floatOrbit {
+      0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+    }
+
+    /* ===== BUTONLAR ===== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(214, 40, 40, 0.4);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 300%;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.8s;
+    }
+
+    .btn:active::before {
+      width: 300px;
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 10px 30px rgba(214, 40, 40, 0.6);
+      filter: brightness(1.1);
+    }
+
+    .btn.white {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .btn.white:hover {
+      background: rgba(255,255,255,0.25);
+      color: #fff;
+    }
+
+    /* ===== HEADER (UZAY MODU) ===== */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      background: rgba(10, 10, 30, 0.7);
+      border-bottom: 1px solid rgba(247, 127, 0, 0.2);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: white;
+      font-family: 'Orbitron', sans-serif;
+      text-shadow: 0 0 10px rgba(247, 127, 0, 0.8);
+    }
+
+    .logo span {
+      color: var(--accent);
+      text-shadow: 0 0 15px rgba(247, 127, 0, 0.9);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 30px;
+    }
+
+    nav a {
+      color: white;
+      font-size: 1.05rem;
+      font-weight: 500;
+      position: relative;
+      padding: 6px 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: 0.3s;
+      border-radius: 1px;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .mobile-toggle {
+      display: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      background: rgba(255,127,0,0.2);
+    }
+
+    @media (max-width: 768px) {
+      .mobile-toggle { display: block; }
+      nav { display: none; }
+      nav.active {
+        display: block;
+        background: rgba(10, 10, 30, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 15px 0;
+      }
+      nav ul {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 20px;
+      }
+    }
+
+    /* ===== HERO (DERİNLİK, PARALLAX) ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 150px 20px 100px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.8rem;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 0 20px rgba(247, 127, 0, 0.8);
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 20px rgba(247, 127, 0, 0.8); }
+      to { text-shadow: 0 0 40px rgba(247, 127, 0, 1), 0 0 60px rgba(214, 40, 40, 0.8); }
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 40px;
+      color: #ccc;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero .btn {
+      margin: 0 12px;
+    }
+
+    /* ===== ÖZELLİKLER (IŞIKLI) ===== */
+    .features {
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .features h2 {
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 15px;
+      text-shadow: 0 0 10px rgba(247, 127, 0, 0.5);
+    }
+
+    .features p {
+      font-size: 1.1rem;
+      color: #bbb;
+      max-width: 750px;
+      margin: 20px auto 0;
+    }
+
+    /* ===== ÖNE ÇIKAN ÜRÜNLER ===== */
+    .featured-products {
+      padding: 100px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .featured-products .section-title {
+      margin-bottom: 50px;
+    }
+
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .product-card {
+      background: rgba(30, 30, 60, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      width: 280px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+      border: 1px solid rgba(247, 127, 0, 0.2);
+      transition: 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent, rgba(247, 127, 0, 0.1));
+      opacity: 0;
+      transition: 0.3s;
+      border-radius: var(--border-radius);
+    }
+
+    .product-card:hover::before {
+      opacity: 1;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+      border-color: var(--accent);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .product-card h3 {
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .product-card p {
+      color: #ddd;
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+
+    /* ===== ŞUBELER (ASİMETRİK POZİSYON) ===== */
+    .branches {
+      padding: 120px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .branch-grid {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+
+    .branch-card {
+      background: rgba(30, 30, 60, 0.6);
+      backdrop-filter: blur(12px);
+      border-radius: var(--border-radius);
+      width: 330px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      font-size: 1rem;
+      border: 1px solid rgba(247, 127, 0, 0.2);
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .branch-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent, rgba(247, 127, 0, 0.1));
+      opacity: 0;
+      transition: 0.3s;
+      border-radius: var(--border-radius);
+    }
+
+    .branch-card:hover::before {
+      opacity: 1;
+    }
+
+    .branch-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+      border-color: rgba(247, 127, 0, 0.5);
+    }
+
+    .branch-card h3 {
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-size: 1.3rem;
+    }
+
+    .branch-card p {
+      margin: 8px 0;
+      color: #ddd;
+      font-size: 0.95rem;
+    }
+
+    .branch-card a {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* ASİMETRİK POZİSYONLAR */
+    .branch-meram {
+      transform: translateY(60px);
+    }
+
+    .branch-selcuklu {
+      transform: translateY(-40px);
+    }
+
+    /* ===== ÜRÜNLER (FLİP + GLOW) ===== */
+    .catalog {
+      padding: 100px 0;
+      background: rgba(10, 10, 20, 0.8);
+      backdrop-filter: blur(5px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+      color: var(--accent);
+      font-size: 2.3rem;
+      position: relative;
+      text-shadow: 0 0 15px rgba(247, 127, 0, 0.6);
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 20px auto 0;
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(247, 127, 0, 0.5);
+    }
+
+    .category {
+      background: rgba(40, 40, 70, 0.5);
+      border-radius: var(--border-radius);
+      padding: 25px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      border-left: 6px solid var(--accent);
+      transition: 0.4s;
+    }
+
+    .category:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.5);
+      border-left-color: var(--primary);
+    }
+
+    .category h3 {
+      color: #fff;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .category ul li {
+      padding: 10px 0;
+      color: #ddd;
+      border-bottom: 1px dashed rgba(247, 127, 0, 0.2);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(5, 5, 15, 0.9);
+      color: #888;
+      text-align: center;
+      padding: 50px 0 30px;
+      position: relative;
+      z-index: 2;
+      border-top: 1px solid rgba(247, 127, 0, 0.1);
+    }
+
+    footer p {
+      margin: 10px 0;
+      font-size: 0.95rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      transition: 0.3s;
+    }
+
+    footer a:hover {
+      color: #fff;
+      text-shadow: 0 0 8px rgba(247, 127, 0, 0.7);
+    }
+
+    /* ===== WHATSAPP FLOAT (UZAYLI) ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 65px;
+      height: 65px;
+      background: #25D366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.9rem;
+      box-shadow: 0 0 30px rgba(37, 211, 102, 0.6);
+      z-index: 1000;
+      animation: pulseOrbit 2s infinite;
+      transition: transform 0.3s;
+    }
+
+    @keyframes pulseOrbit {
+      0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 30px rgba(37, 211, 102, 0.6); }
+      50% { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 40px rgba(37, 211, 102, 0.8); }
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    /* ===== MOBİL ARAMA BUTONU ===== */
+    .mobile-call-fixed {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(214, 40, 40, 0.95);
+      color: white;
+      text-align: center;
+      padding: 16px 0;
+      font-size: 1.15rem;
+      font-weight: 600;
+      z-index: 999;
+      display: none;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+    }
+
+    .mobile-call-fixed a {
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-call-fixed { display: block; }
+      .hero, .branches, .catalog, footer { padding-bottom: 100px !important; }
+      .hero { padding-bottom: 130px; }
+      .whatsapp-float {
+        right: 20px;
+        bottom: 90px;
+        width: 60px;
+        height: 60px;
+        font-size: 1.6rem;
+      }
+      .hero h1 { font-size: 2.8rem; }
+      .product-card { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- UZAY ARKA PLAN -->
+  <div class="space-bg" id="spaceBg">
+    <div class="stars" id="stars"></div>
+    <!-- Gezegen -->
+    <div class="planet" style="width: 80px; height: 80px; top: 30%; left: 10%;"></div>
+    <div class="planet" style="width: 50px; height: 50px; top: 70%; right: 15%; opacity: 0.7;"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <div class="logo">Başkent <span>Yapı Market</span></div>
+      <div class="mobile-toggle" id="mobileToggle">☰</div>
+      <nav id="mainNav">
+        <ul>
+          <li><a href="#" class="tab-link active" data-tab="home">Anasayfa</a></li>
+          <li><a href="#" class="tab-link" data-tab="urunler">Ürünler</a></li>
+          <li><a href="#" class="tab-link" data-tab="iletisim">İletişim</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ANASAYFA -->
+  <div id="home" class="page active">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Konya’da 2 Şubemizle, İnşaat Malzemeleri 7/24 hizmetinizdeyiz</h1>
+        <p><strong>Konya’da 2 şubemizle, inşaat malzemeleri ışık hızında.
+            
+        </strong><br>Stokta, hızlı, güvenilir, 7/24 destek.</p>
+        <div>
+          <a href="#" class="btn tab-link" data-tab="urunler">
+            <i class="fas fa-box-open"></i> Ürünleri Keşfet
+          </a>
+          <a href="tel:05466619657" class="btn white">
+            <i class="fas fa-phone-alt"></i> Ara: 0546-661-9657
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ÖZELLİKLER -->
+    <section class="features">
+      <div class="container">
+        <h2>🚀 Neden Biz?</h2>
+        <p>Dalsan, Kalekim, Cimonta gibi markaların orijinal ürünleri. Konya geneline 24 saatte teslim. 7/24 WhatsApp destek. 2 şubemizle hizmetinizdeyiz.</p>
+      </div>
+    </section>
+
+    <!-- ÖNE ÇIKAN ÜRÜNLER -->
+    <section class="featured-products">
+      <div class="container">
+        <h2 class="section-title">🌟 Öne Çıkan Ürünler</h2>
+        <div class="product-grid">
+          <!-- Ürün 1 -->
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1600080972464-297359611280?auto=format&fit=crop&w=400');"></div>
+            <h3>✅ Sıva Alçısı (Dalsan)</h3>
+            <p>25-35 kg torba. Sıcak ve soğuk duvarlara uygun.</p>
+            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
+          </div>
+
+          <!-- Ürün 2 -->
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1560518883-55535a509860?auto=format&fit=crop&w=400');"></div>
+            <h3>🧱 15’lik Bims Blok</h3>
+            <p>Isı ve ses yalıtımı mükemmel. Stokta hazır.</p>
+            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
+          </div>
+
+          <!-- Ürün 3 -->
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1605454566753-622f1dd1f5d3?auto=format&fit=crop&w=400');"></div>
+            <h3>🏖️ Yıkamış Sıva Kum</h3>
+            <p>Temiz, ince taneli. Sıva ve sıva harcı için ideal.</p>
+            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
+          </div>
+
+          <!-- Ürün 4 -->
+          <div class="product-card">
+            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1572494956491-02f25728b356?auto=format&fit=crop&w=400');"></div>
+            <h3>🏗️ 25’lik Beton Karışımlı</h3>
+            <p>Güçlü, dayanıklı. Temel, kolon, döşeme için.</p>
+            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ŞUBELER (ASİMETRİK) -->
+    <section class="branches">
+      <div class="container">
+        <h2 class="section-title"> Şubelerimiz</h2>
+        <div class="branch-grid">
+          <div class="branch-card branch-meram">
+            <h3>📍 Meram Şubesi</h3>
+            <p>Hasanköy Cd. No:231, Bahçeşehir</p>
+            <p><a href="tel:05466619657">0546-661-9657</a></p>
+            <p>07:30 - 19:00</p>
+          </div>
+          <div class="branch-card branch-selcuklu">
+            <h3>📍 Selçuklu Şubesi</h3>
+            <p>Hoca Cihan Tekke Cd. No:175/F D:1</p>
+            <p><a href="tel:05466619657">0546-661-9657</a></p>
+            <p>07:30 - 19:00</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ÜRÜNLER -->
+  <div id="urunler" class="page" style="display: none;">
+    <section class="catalog">
+      <div class="container">
+        <h2 class="section-title">Tüm Ürün Kataloğu</h2>
+
+        <div class="category">
+          <h3><i class="fas fa-hard-hat"></i> Alçı & Derz Ürünleri</h3>
+          <ul>
+            <li>Sıva Alçısı (Dalsan) – 25-35 kg</li>
+            <li>Saten Alçı (Dalsan) – 25 kg</li>
+            <li>Kartel Alçı (Dalsan) – 25 kg</li>
+            <li>Kalekim / Weber Alçı – 25 kg</li>
+            <li>Dekoratif Sıva – 25 kg</li>
+            <li>Derz Dolgu (Gri & Beyaz) – 20 kg</li>
+            <li>Cimonta Beyaz – 25 kg</li>
+            <li>Konya Cimonta – 50 kg</li>
+            <li>Kireç Alçı (Erciyes) – 25 kg</li>
+            <li>Karton Piyer Alçı – 25 kg</li>
+          </ul>
+        </div>
+
+        <div class="category">
+          <h3><i class="fas fa-water"></i> Kum & Agrega</h3>
+          <ul>
+            <li>Sıva Kum: 0.5 mm, 0.15 mm</li>
+            <li>Bulgaraj Kum, Mucur Kum</li>
+            <li>Yıkamış Sıva Kum</li>
+            <li>Doğal Sıva Kum</li>
+            <li>Beton Kum</li>
+          </ul>
+        </div>
+
+        <div class="category">
+          <h3><i class="fas fa-brick-wall"></i> Bims Blok</h3>
+          <ul>
+            <li>10’luk Bims</li>
+            <li>13,5’lik Bims</li>
+            <li>15’lik Bims</li>
+            <li>20’lik Bims</li>
+            <li>25’lik Bims</li>
+            <li>25’lik Asmolen</li>
+          </ul>
+        </div>
+
+        <div class="category">
+          <h3><i class="fas fa-truck"></i> Beton & Karışımlı</h3>
+          <ul>
+            <li>20’lik Beton Karışımlı</li>
+            <li>25’lik Beton Karışımlı</li>
+          </ul>
+        </div>
+
+        <div class="category">
+          <h3><i class="fas fa-temperature-low"></i> Yalıtım Ürünleri</h3>
+          <ul>
+            <li>Isı Yalıtım Şapı, Harcı, Levhası</li>
+            <li>Yalıtım Filesi (Hasır Tel)</li>
+            <li>Yalıtım Ankrajları</li>
+          </ul>
+        </div>
+
+        <div class="category">
+          <h3><i class="fas fa-tools"></i> Diğer İnşaat Malzemeleri</h3>
+          <ul>
+            <li>40’lık Kilitli Zımba</li>
+            <li>Kilitli Taş Çeşitleri</li>
+            <li>Hasır Tel</li>
+            <li>Alın Tahtası</li>
+            <li>OSB & Alçıpan</li>
+            <li>Kılavuz Tel & Plaka</li>
+          </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+          <a href="tel:05466619657" class="btn">
+            <i class="fas fa-phone"></i> 0546-661-9657 İle İletişime Geç
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- İLETİŞİM -->
+  <div id="iletisim" class="page" style="display: none;">
+    <section class="branches">
+      <div class="container">
+        <h2 class="section-title">İletişim & Şubeler</h2>
+        <div class="branch-grid">
+          <div class="branch-card branch-meram">
+            <h3>📍 Meram Şubesi</h3>
+            <p>Hasanköy Cd. No:231, Bahçeşehir</p>
+            <p><a href="tel:05466619657">0546-661-9657</a></p>
+            <p>07:30 - 19:00</p>
+          </div>
+          <div class="branch-card branch-selcuklu">
+            <h3>📍 Selçuklu Şubesi</h3>
+            <p>Hoca Cihan Tekke Cd. No:175/F D:1</p>
+            <p><a href="tel:05466619657">0546-661-9657</a></p>
+            <p>07:30 - 19:00</p>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 50px;">
+          <a href="https://wa.me/905466619657" class="btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Başkent Yapı Market</p>
+    <p>Konya'nın En Hızlı İnşaat Marketi</p>
+    <p><a href="tel:05466619657">0546-661-9657</a> | Meram & Selçuklu Şubeler</p>
+  </footer>
+
+  <!-- WHATSAPP BUTONU -->
+  <a href="https://wa.me/905466619657" class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <!-- MOBİL ARAMA -->
+  <div class="mobile-call-fixed">
+    <a href="tel:05466619657">📞 0546-661-9657 HEMEN ARA</a>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // Yıldızlar oluştur
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 150; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      star.style.width = Math.random() * 3 + 'px';
+      star.style.height = star.style.width;
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.opacity = Math.random();
+      star.style.animationDuration = Math.random() * 5 + 3 + 's';
+      stars.appendChild(star);
+    }
+
+    // Giriş ekranı
+    setTimeout(() => {
+      document.getElementById('splash')?.classList.add('fade-out');
+      setTimeout(() => document.getElementById('splash')?.remove(), 1000);
+    }, 2500);
+
+    // Sekmeler
+    document.querySelectorAll('.tab-link').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const tab = e.target.getAttribute('data-tab');
+        
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        document.getElementById(tab).style.display = 'block';
+
+        document.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
+        e.target.classList.add('active');
+      });
+    });
+
+    // Mobil menü
+    document.getElementById('mobileToggle').onclick = () => {
+      document.getElementById('mainNav').classList.toggle('active');
+    };
+
+    // İlk sayfa
+    document.getElementById('home').style.display = 'block';
+  </script>
+
+</body>
+</html>
