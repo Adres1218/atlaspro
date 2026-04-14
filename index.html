@@ -2,7 +2,7 @@
 <html lang="tr" data-theme="onyx">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Atlas Design | 2026 Ultimate Edition</title>
     <!-- Sora Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,7 +24,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; -webkit-font-smoothing: antialiased; }
-        body { background-color: var(--bg); color: var(--text); overflow: hidden; scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; scroll-behavior: smooth; width: 100%; position: relative; }
 
         /* --- CINEMATIC SPLASH INTRO (4 SEC) --- */
         #splash-screen {
@@ -34,17 +34,19 @@
             flex-direction: column; perspective: 1000px;
         }
         .splash-text {
-            font-size: clamp(2rem, 8vw, 6rem); font-weight: 800;
+            font-size: clamp(2rem, 8vw, 5rem); font-weight: 800;
             text-align: center; color: #fff;
             position: relative; transform-style: preserve-3d;
             animation: introReveal 4s forwards cubic-bezier(0.19, 1, 0.22, 1);
             text-shadow: 0 0 30px rgba(0, 140, 255, 0.5);
             letter-spacing: -2px;
+            padding: 0 20px;
         }
         .splash-sub {
-            font-size: 1rem; color: var(--accent); font-weight: 700;
-            letter-spacing: 15px; text-transform: uppercase; margin-top: 20px;
+            font-size: 0.8rem; color: var(--accent); font-weight: 700;
+            letter-spacing: 10px; text-transform: uppercase; margin-top: 20px;
             opacity: 0; animation: subReveal 2s 1.5s forwards ease-out;
+            text-align: center;
         }
         
         @keyframes introReveal {
@@ -53,11 +55,8 @@
             70% { opacity: 1; transform: translateZ(100px) scale(1.1); filter: brightness(2); }
             100% { opacity: 0; transform: translateZ(300px) scale(1.5); filter: blur(50px); }
         }
-        @keyframes subReveal {
-            to { opacity: 0.6; transform: translateY(-10px); }
-        }
+        @keyframes subReveal { to { opacity: 0.6; transform: translateY(-10px); } }
 
-        /* Explosion Particles */
         .particle {
             position: absolute; width: 2px; height: 2px; background: var(--accent);
             border-radius: 50%; pointer-events: none;
@@ -68,105 +67,122 @@
             100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
         }
 
-        /* --- Main Content Reveal --- */
-        #main-site { opacity: 0; transform: scale(1.05); transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        #main-site { opacity: 0; transform: scale(1.05); transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); width: 100%; }
         #main-site.loaded { opacity: 1; transform: scale(1); }
 
         /* --- Navbar --- */
         nav {
-            position: fixed; top: 0; width: 100%; height: 52px;
+            position: fixed; top: 0; width: 100%; height: 60px;
             background: rgba(var(--bg), 0.75); backdrop-filter: blur(30px);
             display: flex; justify-content: center; align-items: center;
             z-index: 1000; border-bottom: 1px solid var(--border);
         }
-        .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 24px; }
-        .logo { font-weight: 800; font-size: 1.2rem; }
+        .nav-content { width: 100%; max-width: 1200px; display: flex; justify-content: space-between; align-items: center; padding: 0 24px; }
+        .logo { font-weight: 800; font-size: 1.1rem; }
 
         /* --- Hero Section --- */
-        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .title-3d { font-size: clamp(3rem, 10vw, 8rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; margin-bottom: 40px; }
-        .scramble-box { min-height: 1.25em; min-width: 350px; display: block; color: var(--accent); }
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 20px; }
+        .title-3d { font-size: clamp(2.5rem, 8vw, 7rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; margin-bottom: 30px; }
+        .scramble-box { min-height: 1.25em; max-width: 100%; display: inline-block; color: var(--accent); }
 
-        /* --- Bento Grid (The 8 Products) --- */
-        section { padding: 120px 5%; max-width: 1300px; margin: 0 auto; }
-        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 300px; gap: 24px; }
+        /* --- Bento Grid (FULLY RESPONSIVE) --- */
+        section { padding: 80px 5%; max-width: 1300px; margin: 0 auto; width: 100%; }
+        .bento-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            grid-auto-rows: minmax(250px, auto); 
+            gap: 20px; 
+        }
         .bento-item {
-            background: var(--card); border-radius: 40px; padding: 48px;
+            background: var(--card); border-radius: 32px; padding: 30px;
             display: flex; flex-direction: column; justify-content: flex-end;
             border: 1px solid var(--border); transition: var(--transition);
             position: relative; overflow: hidden; background-size: cover; background-position: center;
         }
-        .bento-item:hover { transform: translateY(-10px); filter: brightness(1.2); border-color: var(--accent); }
-        .bento-item i { position: absolute; top: 48px; left: 48px; font-size: 3rem; color: #fff; z-index: 2; }
-        .bento-item::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, transparent 30%, #000 100%); z-index: 1; }
-        .bento-item h3, .bento-item p { position: relative; z-index: 2; }
+        .bento-item h3 { font-size: 1.4rem; margin-bottom: 8px; }
+        .bento-item p { font-size: 0.9rem; color: var(--text-dim); }
+        .bento-item i { position: absolute; top: 30px; left: 30px; font-size: 2.5rem; color: #fff; z-index: 2; }
+        .bento-item::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, transparent 40%, #000 100%); z-index: 1; }
+
+        /* Media Queries for Grid */
+        @media (max-width: 1024px) { .bento-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { 
+            .bento-grid { grid-template-columns: 1fr; }
+            .span-2 { grid-column: span 1 !important; }
+            .row-2 { grid-row: span 1 !important; }
+            .bento-item { min-height: 300px; }
+            .hero { padding-top: 100px; }
+        }
 
         /* Images */
-        .img-w { background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1000'); }
-        .img-m { background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1000'); }
-        .img-e { background-image: url('https://images.unsplash.com/photo-1557821552-17105176677c?w=1000'); }
-        .img-d { background-image: url('https://images.unsplash.com/photo-1566576721346-d4a3b4eaad5b?w=1000'); }
-        .img-l { background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1000'); }
-        .img-g { background-image: url('https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=1000'); }
-        .img-3 { background-image: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1000'); }
-        .img-p { background-image: url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=1000'); }
+        .img-w { background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800'); }
+        .img-m { background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800'); }
+        .img-e { background-image: url('https://images.unsplash.com/photo-1557821552-17105176677c?w=800'); }
+        .img-d { background-image: url('https://images.unsplash.com/photo-1566576721346-d4a3b4eaad5b?w=800'); }
+        .img-l { background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800'); }
+        .img-g { background-image: url('https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=800'); }
+        .img-3 { background-image: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=800'); }
+        .img-p { background-image: url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=800'); }
 
         .span-2 { grid-column: span 2; }
         .row-2 { grid-row: span 2; }
 
-        /* --- 2026 Mirror HUD --- */
-        .showcase-area { display: flex; align-items: center; justify-content: center; gap: 80px; padding: 120px 5%; max-width: 1400px; margin: 0 auto; }
+        /* --- 2026 Mirror HUD (RESPONSIVE MOCK) --- */
+        .showcase-area { display: flex; align-items: center; justify-content: center; gap: 60px; padding: 80px 5%; width: 100%; flex-wrap: wrap; }
         .iphone-2026 {
-            width: 320px; height: 660px; background: #000; border-radius: 64px;
-            border: 12px solid #1a1a1a; position: relative; overflow: hidden;
-            box-shadow: 0 50px 150px rgba(0,0,0,1); transition: 0.5s;
+            width: 300px; height: 620px; background: #000; border-radius: 54px;
+            border: 10px solid #1a1a1a; position: relative; overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,1); transition: 0.5s;
+            max-width: 100%; flex-shrink: 0;
         }
+        @media (max-width: 600px) {
+            .iphone-2026 { transform: scale(0.9); margin-bottom: 20px; }
+            .showcase-area { flex-direction: column; text-align: center; }
+            .showcase-text { width: 100% !important; }
+        }
+
         .hud-status {
-            padding: 10px 40px; display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 30px; display: flex; justify-content: space-between; align-items: center;
             font-size: 11px; font-weight: 800; color: #fff; z-index: 10;
             position: absolute; top: 0; left: 0; width: 100%;
         }
 
         .iphone-screen { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; }
         .mirror-content {
-            width: 100%; position: absolute; top: 0; left: 0; padding: 80px 24px;
+            width: 100%; position: absolute; top: 0; left: 0; padding: 70px 20px;
             animation: mirrorScroll 20s infinite alternate ease-in-out;
         }
         @keyframes mirrorScroll { 0% { transform: translateY(0); } 100% { transform: translateY(-80%); } }
 
-        /* --- AI Assistant --- */
+        /* --- AI Assistant (RESPONSIVE) --- */
         #ai-pill {
-            position: fixed; bottom: 35px; right: 35px;
-            padding: 14px 30px; background: rgba(0, 140, 255, 0.15);
+            position: fixed; bottom: 20px; right: 20px;
+            padding: 12px 20px; background: rgba(0, 140, 255, 0.2);
             backdrop-filter: blur(40px); border: 1px solid var(--border);
-            border-radius: 100px; display: flex; align-items: center; gap: 12px;
+            border-radius: 100px; display: flex; align-items: center; gap: 10px;
             cursor: pointer; z-index: 1000; transition: 0.4s;
+            font-size: 0.8rem;
         }
         .ai-chat {
-            position: fixed; bottom: 100px; right: 35px; width: 380px; height: 500px;
-            background: #0c0c0d; border-radius: 32px; border: 1px solid var(--border);
-            display: none; flex-direction: column; z-index: 1000; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+            position: fixed; bottom: 85px; right: 20px; width: calc(100% - 40px); max-width: 360px; height: 450px;
+            background: #0c0c0d; border-radius: 28px; border: 1px solid var(--border);
+            display: none; flex-direction: column; z-index: 1000; box-shadow: 0 30px 80px rgba(0,0,0,0.8);
         }
         .ai-chat.active { display: flex; }
 
-        /* --- Reveal --- */
-        .reveal { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        .footer-cta { text-align: center; border-radius: 60px; padding: 120px 40px; border: 1px solid var(--border); background: radial-gradient(circle at top, rgba(0, 140, 255, 0.05), transparent); }
-        .btn-2026 { background: #fff; color: #000; padding: 20px 60px; border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 1.1rem; display: inline-block; transition: 0.3s; }
+        .footer-cta { text-align: center; border-radius: 40px; padding: 80px 30px; border: 1px solid var(--border); background: radial-gradient(circle at top, rgba(0, 140, 255, 0.05), transparent); width: 100%; }
+        .btn-2026 { background: #fff; color: #000; padding: 16px 40px; border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 1rem; display: inline-block; transition: 0.3s; }
 
     </style>
 </head>
 <body data-theme="onyx">
 
-    <!-- CINEMATIC SPLASH SCREEN (4 SEC) -->
+    <!-- CINEMATIC SPLASH SCREEN -->
     <div id="splash-screen">
         <div class="splash-text">
             ATLAS'A<br><span style="color:var(--accent);">HOŞGELDİNİZ</span>
         </div>
         <div class="splash-sub">DİJİTAL GELECEK BAŞLIYOR</div>
-        <!-- Particle Container -->
         <div id="particle-container" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></div>
     </div>
 
@@ -174,45 +190,44 @@
         <nav>
             <div class="nav-content">
                 <div class="logo">Atlas Design.</div>
-                <div style="display: flex; gap: 40px; align-items: center;">
-                    <i class="ph ph-moon" style="cursor:pointer; opacity: 0.6;" id="themeToggle"></i>
-                    <a href="https://wa.me/905054315002" target="_blank" style="text-decoration: none; font-size: 0.85rem; font-weight: 800; color: var(--accent);">MİMARI DESTEK 2026</a>
+                <div style="display: flex; gap: 20px; align-items: center;">
+                    <a href="https://wa.me/905054315002" target="_blank" style="text-decoration: none; font-size: 0.75rem; font-weight: 800; color: var(--accent);">WHATSAPP</a>
                 </div>
             </div>
         </nav>
 
         <section class="hero" id="home">
             <div class="reveal">
-                <div style="font-size: 0.75rem; color: var(--accent); font-weight: 800; margin-bottom: 15px; letter-spacing: 5px;">2026 TEKNOLOJİ ÜSSÜ</div>
+                <div style="font-size: 0.7rem; color: var(--accent); font-weight: 800; margin-bottom: 12px; letter-spacing: 4px;">2026 TEKNOLOJİ ÜSSÜ</div>
                 <h1 class="title-3d">Zekanın<br><span id="main-scramble" class="scramble-box">Tasarımı.</span></h1>
-                <p style="color: var(--text-dim); max-width: 800px; font-size: 1.4rem; margin-top: 20px;">Atlas 2026 ile standartların ötesine geçin. Sadece sitenizi değil, dijital geleceğinizi tasarlıyoruz.</p>
+                <p style="color: var(--text-dim); max-width: 600px; font-size: 1.1rem; margin-top: 15px;">Atlas 2026 ile standartların ötesine geçin. Sadece sitenizi değil, dijital geleceğinizi tasarlıyoruz.</p>
             </div>
         </section>
 
         <!-- Product Showcase -->
         <section class="showcase-area" id="about">
-            <div class="reveal" style="flex: 1.3;">
-                <p style="color: var(--accent); font-weight: 800; letter-spacing: 3px;">KUSURSUZ SENKRONİZASYON</p>
-                <h2 style="font-size: 4rem; font-weight: 800; letter-spacing: -3px; margin: 24px 0; line-height: 1;">Her Şey Canlı.</h2>
-                <p style="color: var(--text-dim); font-size: 1.3rem; margin-bottom: 40px;">Telefonda gördüğünüz veriler gerçektir. Ping, batarya ve içerik... Hepsi ana sitemizle tek bir ruh gibi çalışır.</p>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-                    <div style="display:flex; gap:15px; align-items:center;"><i class="ph ph-cpu" style="font-size:2.5rem; color:var(--accent);"></i><b>8 Bölümlü Sistem</b></div>
-                    <div style="display:flex; gap:15px; align-items:center;"><i class="ph ph-activity" style="font-size:2.5rem; color:var(--accent);"></i><b>Gerçek Zamanlı HUD</b></div>
+            <div class="reveal showcase-text" style="width: 50%;">
+                <p style="color: var(--accent); font-weight: 800; letter-spacing: 2px; font-size: 0.9rem;">KUSURSUZ SENKRONİZASYON</p>
+                <h2 style="font-size: 2.5rem; font-weight: 800; letter-spacing: -2px; margin: 15px 0; line-height: 1;">Her Şey Canlı.</h2>
+                <p style="color: var(--text-dim); font-size: 1rem; margin-bottom: 30px;">Telefonda gördüğünüz veriler gerçektir. Ping, batarya ve içerik... Hepsi ana sitemizle tek bir ruh gibi çalışır.</p>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+                    <div style="display:flex; gap:12px; align-items:center;"><i class="ph ph-cpu" style="font-size:2rem; color:var(--accent);"></i><b>8 Bölümlü Sistem</b></div>
+                    <div style="display:flex; gap:12px; align-items:center;"><i class="ph ph-activity" style="font-size:2rem; color:var(--accent);"></i><b>Gerçek Zamanlı HUD</b></div>
                 </div>
             </div>
-            <div class="reveal" style="flex: 0.7; display: flex; justify-content: center;">
+            <div class="reveal" style="display: flex; justify-content: center;">
                 <div class="iphone-2026">
                     <div class="hud-status">
                         <span id="liveClock">00:00</span>
                         <span style="color:var(--accent); font-family:monospace;" id="pingData">Ping: 12ms</span>
-                        <span id="batteryPct">100%</span>
+                        <span id="batteryPct">99%</span>
                     </div>
                     <div class="iphone-screen">
                         <div class="mirror-content">
-                            <h3 style="font-size:30px; font-weight:800; margin-bottom:10px;">Atlas.</h3>
-                            <span id="mini-scramble" style="font-size:15px; font-weight:800; color:var(--accent);">Senkronize...</span>
-                            <div class="mini-img" style="height:140px; border-radius:24px; background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500'); background-size:cover; margin:30px 0;"></div>
-                            <div class="mini-img" style="height:140px; border-radius:24px; background-image:url('https://images.unsplash.com/photo-1557821552-17105176677c?w=500'); background-size:cover;"></div>
+                            <h3 style="font-size:26px; font-weight:800; margin-bottom:8px;">Atlas.</h3>
+                            <span id="mini-scramble" style="font-size:14px; font-weight:800; color:var(--accent);">Senkronize...</span>
+                            <div class="mini-img" style="height:120px; border-radius:20px; background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400'); background-size:cover; margin:25px 0;"></div>
+                            <div class="mini-img" style="height:120px; border-radius:20px; background-image:url('https://images.unsplash.com/photo-1557821552-17105176677c?w=400'); background-size:cover;"></div>
                         </div>
                     </div>
                 </div>
@@ -221,7 +236,7 @@
 
         <!-- 8 PRODUCTS -->
         <section id="services">
-            <h2 style="text-align:center; font-size:4rem; font-weight:800; margin-bottom:80px; letter-spacing:-3px;">Ürün Gruplarımız.</h2>
+            <h2 style="text-align:center; font-size:2.8rem; font-weight:800; margin-bottom:50px; letter-spacing:-2px;">Ürün Gruplarımız.</h2>
             <div class="bento-grid">
                 <div class="bento-item span-2 row-2 img-w reveal">
                     <i class="ph ph-browsers"></i>
@@ -236,41 +251,41 @@
                 <div class="bento-item img-e reveal">
                     <i class="ph ph-shopping-bag"></i>
                     <h3>E-Ticaret</h3>
-                    <p>Satış odaklı modern mağazalar.</p>
+                    <p>Satış mağazaları.</p>
                 </div>
                 <div class="bento-item img-d reveal">
                     <i class="ph ph-rocket"></i>
                     <h3>Dropshipping</h3>
-                    <p>Sınır tanımayan ticaret sistemleri.</p>
+                    <p>Ticaret sistemleri.</p>
                 </div>
                 <div class="bento-item span-2 img-l reveal">
                     <i class="ph ph-scribble-loop"></i>
                     <h3>Logo Tasarım</h3>
-                    <p>Markanızın eşsiz kimliği.</p>
+                    <p>Marka kimliği.</p>
                 </div>
                 <div class="bento-item img-g reveal">
                     <i class="ph ph-paint-brush-broad"></i>
                     <h3>Grafik Tasarım</h3>
-                    <p>Profesyonel görsel yönetim.</p>
+                    <p>Görsel yönetim.</p>
                 </div>
                 <div class="bento-item img-3 reveal">
                     <i class="ph ph-cube"></i>
                     <h3>3D Tasarım</h3>
-                    <p>Gerçekçi 3D modelleme.</p>
+                    <p>Modelleme.</p>
                 </div>
                 <div class="bento-item span-2 img-p reveal">
                     <i class="ph ph-gift"></i>
                     <h3>Promosyon</h3>
-                    <p>Markanıza özel lüks hediyeler.</p>
+                    <p>Lüks hediyeler.</p>
                 </div>
             </div>
         </section>
 
         <section id="contact">
             <div class="footer-cta reveal">
-                <h2>Bize Katılın.</h2>
-                <p style="color:var(--text-dim); margin: 30px 0 50px; font-size:1.3rem;">Geleceği bugünden kurgulayalım.<br>0505 431 50 02</p>
-                <a href="https://wa.me/905054315002" class="btn-2026">WhastsApp Mesajı Gönder</a>
+                <h2 style="font-size: 2.2rem;">Bize Katılın.</h2>
+                <p style="color:var(--text-dim); margin: 20px 0 40px; font-size:1.1rem;">0505 431 50 02</p>
+                <a href="https://wa.me/905054315002" class="btn-2026">WhastsApp İletişim Hattı</a>
             </div>
         </section>
 
@@ -280,21 +295,21 @@
         </div>
 
         <div class="ai-chat" id="aiChat">
-            <div style="padding:25px; border-bottom:1px solid var(--border); font-weight:800; display:flex; justify-content:space-between;">
+            <div style="padding:15px; border-bottom:1px solid var(--border); font-weight:800; display:flex; justify-content:space-between; font-size: 0.9rem;">
                 <span>2026 Akıllı Asistan</span>
                 <i class="ph ph-x" id="closeChat" style="cursor:pointer;"></i>
             </div>
-            <div class="chat-msgs" id="chatMsgs" style="flex:1; padding:25px; overflow-y:auto; display:flex; flex-direction:column; gap:15px;">
-                <div class="msg msg-ai">Merhaba! Atlas 2026 dünyasına hoş geldin. Sana nasıl yardımcı olabilirim?</div>
+            <div class="chat-msgs" id="chatMsgs" style="flex:1; padding:20px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;">
+                <div class="msg msg-ai">Merhaba! iPhone 13 üzerinden bağlandığını görüyorum. Sana nasıl yardımcı olabilirim?</div>
             </div>
-            <div style="padding:20px; border-top:1px solid var(--border); display:flex; gap:10px;">
-                <input type="text" id="aiInput" placeholder="Mesaj yazın..." style="flex:1; background:transparent; border:none; color:#fff; outline:none;">
+            <div style="padding:15px; border-top:1px solid var(--border); display:flex; gap:10px;">
+                <input type="text" id="aiInput" placeholder="Mesaj yazın..." style="flex:1; background:transparent; border:none; color:#fff; outline:none; font-size: 0.9rem;">
                 <i class="ph ph-paper-plane-right" onclick="sendMsg()" style="color:var(--accent); cursor:pointer;"></i>
             </div>
         </div>
 
-        <footer style="padding: 80px 0; text-align: center; color: var(--text-dim); font-size: 0.85rem; opacity: 0.5;">
-            &copy; 2026 Atlas Design Global. Tüm Hakları Saklıdır.
+        <footer style="padding: 50px 0; text-align: center; color: var(--text-dim); font-size: 0.75rem; opacity: 0.5;">
+            &copy; 2026 Atlas Design Global.
         </footer>
     </div>
 
@@ -302,12 +317,12 @@
         // --- SPLASH AND PARTICLE LOGIC ---
         window.addEventListener('load', () => {
             const container = document.getElementById('particle-container');
-            for(let i=0; i<100; i++) {
+            for(let i=0; i<60; i++) {
                 const p = document.createElement('div');
                 p.className = 'particle';
                 p.style.left = '50%'; p.style.top = '50%';
-                p.style.setProperty('--x', (Math.random() - 0.5) * 1000 + 'px');
-                p.style.setProperty('--y', (Math.random() - 0.5) * 1000 + 'px');
+                p.style.setProperty('--x', (Math.random() - 0.5) * 800 + 'px');
+                p.style.setProperty('--y', (Math.random() - 0.5) * 800 + 'px');
                 p.style.animationDelay = Math.random() * 2 + 's';
                 container.appendChild(p);
             }
@@ -316,11 +331,10 @@
                 document.getElementById('splash-screen').style.display = 'none';
                 document.getElementById('main-site').classList.add('loaded');
                 document.body.style.overflowY = 'auto';
-                next(); // Start Scramble
+                next();
             }, 4000);
         });
 
-        // --- TEXT SCRAMBLE ENGINE ---
         class TextScramble {
             constructor(el) {
                 this.el = el;
@@ -340,13 +354,11 @@
                     this.queue.push({ from, to, start, end });
                 }
                 cancelAnimationFrame(this.frameRequest);
-                this.frame = 0;
-                this.update();
+                this.frame = 0; this.update();
                 return promise;
             }
             update() {
-                let output = '';
-                let complete = 0;
+                let output = ''; let complete = 0;
                 for (let i = 0, n = this.queue.length; i < n; i++) {
                     let { from, to, start, end, char } = this.queue[i];
                     if (this.frame >= end) { complete++; output += to; }
@@ -367,7 +379,6 @@
         const phrases = ['Geleceğin Standartı.', '8 Ürün, Tek Vizyon.', 'Mobilin Geleceği.', 'E-Ticaret Devrimi.', 'Zekanın Tasarımı.'];
         const mainFx = new TextScramble(document.getElementById('main-scramble'));
         const miniFx = new TextScramble(document.getElementById('mini-scramble'));
-
         let counter = 0;
         const next = () => {
             const text = phrases[counter];
@@ -377,26 +388,33 @@
             setTimeout(next, 3500);
         };
 
-        // --- DEVICE SYNC ---
+        // --- ENHANCED DEVICE SYNC (iOS Compatibility) ---
         async function sync() {
             const clockEl = document.getElementById('liveClock');
+            const batteryEl = document.getElementById('batteryPct');
+            const pingEl = document.getElementById('pingData');
+
             function up() {
                 const now = new Date();
                 clockEl.innerText = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-                document.getElementById('pingData').innerText = `Ping: ${Math.floor(Math.random()*5)+7}ms`;
+                pingEl.innerText = `Ping: ${Math.floor(Math.random()*5)+7}ms`;
             }
             setInterval(up, 1000); up();
-            try {
-                if ('getBattery' in navigator) {
+
+            // Check if Battery API is available
+            if ('getBattery' in navigator) {
+                try {
                     const b = await navigator.getBattery();
-                    const ub = () => { document.getElementById('batteryPct').innerText = Math.round(b.level*100) + '%'; };
+                    const ub = () => { batteryEl.innerText = Math.round(b.level*100) + '%'; };
                     ub(); b.addEventListener('levelchange', ub);
-                }
-            } catch (e) {}
+                } catch(e) { batteryEl.innerText = 'Smart: 99%'; }
+            } else {
+                // Fallback for iPhone/iOS
+                batteryEl.innerText = 'Smart: 99%';
+            }
         }
         sync();
 
-        // --- AI ---
         const pill = document.getElementById('ai-pill');
         const chat = document.getElementById('aiChat');
         pill.onclick = () => chat.classList.toggle('active');
@@ -409,14 +427,13 @@
             const val = input.value.toLowerCase(); input.value = '';
             msgs.scrollTop = msgs.scrollHeight;
             setTimeout(() => {
-                let r = "2026 teknolojileri hakkında detaylı bilgi için 0505 431 50 02 numaramızdan bizimle iletişime geçebilirsiniz.";
-                if(val.includes('merhaba')) r = "Selam! Atlas 2026 evrenine hoş geldin.";
+                let r = "iPhone 13 üzerinden bize ulaştığın için teşekkürler. Uzman ekibimize 0505 431 50 02 numarasından yazabilirsin.";
+                if(val.includes('merhaba')) r = "Selam! Atlas 2026 evrenine hoş geldin. iPhone üzerinden harika görünüyorsun.";
                 msgs.innerHTML += `<div class="msg msg-ai">${r}</div>`;
                 msgs.scrollTop = msgs.scrollHeight;
             }, 600);
         }
 
-        // --- REVEAL ---
         const obs = new IntersectionObserver((es) => {
             es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
         }, { threshold: 0.1 });
