@@ -1,911 +1,426 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="tr" data-theme="onyx">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Başkent Yapı Market - Konya meram Şubesi - selcuklu Şubesi hizmetinizdeyiz</title>
-  <meta name="description" content="Konya'nın en hızlı inşaat marketi. 2 şubede hizmet. Alçı, bims, kum, beton. 0546-661-9657" />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* ===== CSS DEĞİŞKENLERİ ===== */
-    :root {
-      --primary: #d62828;
-      --primary-dark: #a51c1c;
-      --accent: #f77f00;
-      --dark: #0a0a0a;
-      --light: #f8f9fa;
-      --text: #e0e0e0;
-      --bg: #000011;
-      --star: #ffffff;
-      --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-      --shadow-md: 0 8px 25px rgba(0,0,0,0.3);
-      --shadow-lg: 0 15px 35px rgba(0,0,0,0.4);
-      --border-radius: 16px;
-    }
-
-    /* ===== RESET ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      overflow-x: hidden;
-      position: relative;
-      min-height: 100vh;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Orbitron', sans-serif;
-      letter-spacing: 1px;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    ul {
-      list-style: none;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* ===== UZAYLI ARKA PLAN ANİMASYONU ===== */
-    .space-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(ellipse at center, #000022 0%, #000011 70%);
-      z-index: -2;
-      overflow: hidden;
-    }
-
-    .stars {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-
-    .star {
-      position: absolute;
-      background: var(--star);
-      border-radius: 50%;
-      animation: twinkle linear infinite;
-    }
-
-    @keyframes twinkle {
-      0% { opacity: 0; }
-      50% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-
-    .planet {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, #f77f00, #d62828);
-      box-shadow: 0 0 30px rgba(247, 127, 0, 0.5);
-      animation: floatOrbit 30s infinite linear;
-    }
-
-    @keyframes floatOrbit {
-      0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
-      100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
-    }
-
-    /* ===== BUTONLAR ===== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 14px 28px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      border: none;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 1.05rem;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(214, 40, 40, 0.4);
-      transition: all 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 300%;
-      background: rgba(255,255,255,0.2);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.8s;
-    }
-
-    .btn:active::before {
-      width: 300px;
-    }
-
-    .btn:hover {
-      transform: translateY(-4px) scale(1.05);
-      box-shadow: 0 10px 30px rgba(214, 40, 40, 0.6);
-      filter: brightness(1.1);
-    }
-
-    .btn.white {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.3);
-    }
-
-    .btn.white:hover {
-      background: rgba(255,255,255,0.25);
-      color: #fff;
-    }
-
-    /* ===== HEADER (UZAY MODU) ===== */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 1000;
-      backdrop-filter: blur(12px);
-      background: rgba(10, 10, 30, 0.7);
-      border-bottom: 1px solid rgba(247, 127, 0, 0.2);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    }
-
-    header .container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 0;
-    }
-
-    .logo {
-      font-size: 1.9rem;
-      font-weight: 700;
-      color: white;
-      font-family: 'Orbitron', sans-serif;
-      text-shadow: 0 0 10px rgba(247, 127, 0, 0.8);
-    }
-
-    .logo span {
-      color: var(--accent);
-      text-shadow: 0 0 15px rgba(247, 127, 0, 0.9);
-    }
-
-    nav ul {
-      display: flex;
-      gap: 30px;
-    }
-
-    nav a {
-      color: white;
-      font-size: 1.05rem;
-      font-weight: 500;
-      position: relative;
-      padding: 6px 0;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--accent);
-      transition: 0.3s;
-      border-radius: 1px;
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    .mobile-toggle {
-      display: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 8px;
-      background: rgba(255,127,0,0.2);
-    }
-
-    @media (max-width: 768px) {
-      .mobile-toggle { display: block; }
-      nav { display: none; }
-      nav.active {
-        display: block;
-        background: rgba(10, 10, 30, 0.95);
-        backdrop-filter: blur(10px);
-        padding: 15px 0;
-      }
-      nav ul {
-        flex-direction: column;
-        gap: 20px;
-        padding: 0 20px;
-      }
-    }
-
-    /* ===== HERO (DERİNLİK, PARALLAX) ===== */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 150px 20px 100px;
-      position: relative;
-      z-index: 2;
-    }
-
-    .hero-content {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .hero h1 {
-      font-size: 3.8rem;
-      margin-bottom: 20px;
-      color: white;
-      text-shadow: 0 0 20px rgba(247, 127, 0, 0.8);
-      animation: glow 2s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { text-shadow: 0 0 20px rgba(247, 127, 0, 0.8); }
-      to { text-shadow: 0 0 40px rgba(247, 127, 0, 1), 0 0 60px rgba(214, 40, 40, 0.8); }
-    }
-
-    .hero p {
-      font-size: 1.3rem;
-      margin-bottom: 40px;
-      color: #ccc;
-      max-width: 700px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero .btn {
-      margin: 0 12px;
-    }
-
-    /* ===== ÖZELLİKLER (IŞIKLI) ===== */
-    .features {
-      padding: 100px 0;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-    }
-
-    .features h2 {
-      font-size: 2.2rem;
-      color: var(--accent);
-      margin-bottom: 15px;
-      text-shadow: 0 0 10px rgba(247, 127, 0, 0.5);
-    }
-
-    .features p {
-      font-size: 1.1rem;
-      color: #bbb;
-      max-width: 750px;
-      margin: 20px auto 0;
-    }
-
-    /* ===== ÖNE ÇIKAN ÜRÜNLER ===== */
-    .featured-products {
-      padding: 100px 0;
-      position: relative;
-      z-index: 2;
-    }
-
-    .featured-products .section-title {
-      margin-bottom: 50px;
-    }
-
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      justify-content: center;
-    }
-
-    .product-card {
-      background: rgba(30, 30, 60, 0.7);
-      backdrop-filter: blur(10px);
-      border-radius: var(--border-radius);
-      width: 280px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-      border: 1px solid rgba(247, 127, 0, 0.2);
-      transition: 0.4s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .product-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(45deg, transparent, rgba(247, 127, 0, 0.1));
-      opacity: 0;
-      transition: 0.3s;
-      border-radius: var(--border-radius);
-    }
-
-    .product-card:hover::before {
-      opacity: 1;
-    }
-
-    .product-card:hover {
-      transform: translateY(-10px) scale(1.05);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-      border-color: var(--accent);
-    }
-
-    .product-image {
-      width: 100%;
-      height: 180px;
-      background-size: cover;
-      background-position: center;
-      border-radius: 12px;
-      margin-bottom: 15px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-
-    .product-card h3 {
-      color: var(--accent);
-      font-size: 1.3rem;
-      margin-bottom: 10px;
-    }
-
-    .product-card p {
-      color: #ddd;
-      font-size: 0.95rem;
-      margin-bottom: 18px;
-      line-height: 1.5;
-    }
-
-    /* ===== ŞUBELER (ASİMETRİK POZİSYON) ===== */
-    .branches {
-      padding: 120px 0;
-      position: relative;
-      z-index: 2;
-    }
-
-    .branch-grid {
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      flex-wrap: wrap;
-    }
-
-    .branch-card {
-      background: rgba(30, 30, 60, 0.6);
-      backdrop-filter: blur(12px);
-      border-radius: var(--border-radius);
-      width: 330px;
-      box-shadow: var(--shadow-md);
-      text-align: center;
-      font-size: 1rem;
-      border: 1px solid rgba(247, 127, 0, 0.2);
-      transition: all 0.4s;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .branch-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(45deg, transparent, rgba(247, 127, 0, 0.1));
-      opacity: 0;
-      transition: 0.3s;
-      border-radius: var(--border-radius);
-    }
-
-    .branch-card:hover::before {
-      opacity: 1;
-    }
-
-    .branch-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-      border-color: rgba(247, 127, 0, 0.5);
-    }
-
-    .branch-card h3 {
-      color: var(--accent);
-      margin-bottom: 12px;
-      font-size: 1.3rem;
-    }
-
-    .branch-card p {
-      margin: 8px 0;
-      color: #ddd;
-      font-size: 0.95rem;
-    }
-
-    .branch-card a {
-      color: var(--accent);
-      font-weight: 600;
-    }
-
-    /* ASİMETRİK POZİSYONLAR */
-    .branch-meram {
-      transform: translateY(60px);
-    }
-
-    .branch-selcuklu {
-      transform: translateY(-40px);
-    }
-
-    /* ===== ÜRÜNLER (FLİP + GLOW) ===== */
-    .catalog {
-      padding: 100px 0;
-      background: rgba(10, 10, 20, 0.8);
-      backdrop-filter: blur(5px);
-      position: relative;
-      z-index: 2;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-bottom: 60px;
-      color: var(--accent);
-      font-size: 2.3rem;
-      position: relative;
-      text-shadow: 0 0 15px rgba(247, 127, 0, 0.6);
-    }
-
-    .section-title::after {
-      content: '';
-      display: block;
-      width: 80px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), transparent);
-      margin: 20px auto 0;
-      border-radius: 2px;
-      box-shadow: 0 0 10px rgba(247, 127, 0, 0.5);
-    }
-
-    .category {
-      background: rgba(40, 40, 70, 0.5);
-      border-radius: var(--border-radius);
-      padding: 25px;
-      margin-bottom: 25px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-      border-left: 6px solid var(--accent);
-      transition: 0.4s;
-    }
-
-    .category:hover {
-      transform: scale(1.03);
-      box-shadow: 0 12px 35px rgba(0,0,0,0.5);
-      border-left-color: var(--primary);
-    }
-
-    .category h3 {
-      color: #fff;
-      font-size: 1.4rem;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .category ul li {
-      padding: 10px 0;
-      color: #ddd;
-      border-bottom: 1px dashed rgba(247, 127, 0, 0.2);
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: rgba(5, 5, 15, 0.9);
-      color: #888;
-      text-align: center;
-      padding: 50px 0 30px;
-      position: relative;
-      z-index: 2;
-      border-top: 1px solid rgba(247, 127, 0, 0.1);
-    }
-
-    footer p {
-      margin: 10px 0;
-      font-size: 0.95rem;
-    }
-
-    footer a {
-      color: var(--accent);
-      transition: 0.3s;
-    }
-
-    footer a:hover {
-      color: #fff;
-      text-shadow: 0 0 8px rgba(247, 127, 0, 0.7);
-    }
-
-    /* ===== WHATSAPP FLOAT (UZAYLI) ===== */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 65px;
-      height: 65px;
-      background: #25D366;
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.9rem;
-      box-shadow: 0 0 30px rgba(37, 211, 102, 0.6);
-      z-index: 1000;
-      animation: pulseOrbit 2s infinite;
-      transition: transform 0.3s;
-    }
-
-    @keyframes pulseOrbit {
-      0%, 100% { transform: scale(1) rotate(0deg); box-shadow: 0 0 30px rgba(37, 211, 102, 0.6); }
-      50% { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 40px rgba(37, 211, 102, 0.8); }
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.2) rotate(10deg);
-    }
-
-    /* ===== MOBİL ARAMA BUTONU ===== */
-    .mobile-call-fixed {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(214, 40, 40, 0.95);
-      color: white;
-      text-align: center;
-      padding: 16px 0;
-      font-size: 1.15rem;
-      font-weight: 600;
-      z-index: 999;
-      display: none;
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    .mobile-call-fixed a {
-      color: white;
-    }
-
-    @media (max-width: 768px) {
-      .mobile-call-fixed { display: block; }
-      .hero, .branches, .catalog, footer { padding-bottom: 100px !important; }
-      .hero { padding-bottom: 130px; }
-      .whatsapp-float {
-        right: 20px;
-        bottom: 90px;
-        width: 60px;
-        height: 60px;
-        font-size: 1.6rem;
-      }
-      .hero h1 { font-size: 2.8rem; }
-      .product-card { width: 100%; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- UZAY ARKA PLAN -->
-  <div class="space-bg" id="spaceBg">
-    <div class="stars" id="stars"></div>
-    <!-- Gezegen -->
-    <div class="planet" style="width: 80px; height: 80px; top: 30%; left: 10%;"></div>
-    <div class="planet" style="width: 50px; height: 50px; top: 70%; right: 15%; opacity: 0.7;"></div>
-  </div>
-
-  <!-- HEADER -->
-  <header>
-    <div class="container">
-      <div class="logo">Başkent <span>Yapı Market</span></div>
-      <div class="mobile-toggle" id="mobileToggle">☰</div>
-      <nav id="mainNav">
-        <ul>
-          <li><a href="#" class="tab-link active" data-tab="home">Anasayfa</a></li>
-          <li><a href="#" class="tab-link" data-tab="urunler">Ürünler</a></li>
-          <li><a href="#" class="tab-link" data-tab="iletisim">İletişim</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- ANASAYFA -->
-  <div id="home" class="page active">
-
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>Konya’da 2 Şubemizle, İnşaat Malzemeleri 7/24 hizmetinizdeyiz</h1>
-        <p><strong>Konya’da 2 şubemizle, inşaat malzemeleri ışık hızında.
-            
-        </strong><br>Stokta, hızlı, güvenilir, 7/24 destek.</p>
-        <div>
-          <a href="#" class="btn tab-link" data-tab="urunler">
-            <i class="fas fa-box-open"></i> Ürünleri Keşfet
-          </a>
-          <a href="tel:05466619657" class="btn white">
-            <i class="fas fa-phone-alt"></i> Ara: 0546-661-9657
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ÖZELLİKLER -->
-    <section class="features">
-      <div class="container">
-        <h2>🚀 Neden Biz?</h2>
-        <p>Dalsan, Kalekim, Cimonta gibi markaların orijinal ürünleri. Konya geneline 24 saatte teslim. 7/24 WhatsApp destek. 2 şubemizle hizmetinizdeyiz.</p>
-      </div>
-    </section>
-
-    <!-- ÖNE ÇIKAN ÜRÜNLER -->
-    <section class="featured-products">
-      <div class="container">
-        <h2 class="section-title">🌟 Öne Çıkan Ürünler</h2>
-        <div class="product-grid">
-          <!-- Ürün 1 -->
-          <div class="product-card">
-            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1600080972464-297359611280?auto=format&fit=crop&w=400');"></div>
-            <h3>✅ Sıva Alçısı (Dalsan)</h3>
-            <p>25-35 kg torba. Sıcak ve soğuk duvarlara uygun.</p>
-            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
-          </div>
-
-          <!-- Ürün 2 -->
-          <div class="product-card">
-            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1560518883-55535a509860?auto=format&fit=crop&w=400');"></div>
-            <h3>🧱 15’lik Bims Blok</h3>
-            <p>Isı ve ses yalıtımı mükemmel. Stokta hazır.</p>
-            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
-          </div>
-
-          <!-- Ürün 3 -->
-          <div class="product-card">
-            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1605454566753-622f1dd1f5d3?auto=format&fit=crop&w=400');"></div>
-            <h3>🏖️ Yıkamış Sıva Kum</h3>
-            <p>Temiz, ince taneli. Sıva ve sıva harcı için ideal.</p>
-            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
-          </div>
-
-          <!-- Ürün 4 -->
-          <div class="product-card">
-            <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1572494956491-02f25728b356?auto=format&fit=crop&w=400');"></div>
-            <h3>🏗️ 25’lik Beton Karışımlı</h3>
-            <p>Güçlü, dayanıklı. Temel, kolon, döşeme için.</p>
-            <a href="#" class="btn tab-link" data-tab="urunler">Daha Fazla</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ŞUBELER (ASİMETRİK) -->
-    <section class="branches">
-      <div class="container">
-        <h2 class="section-title"> Şubelerimiz</h2>
-        <div class="branch-grid">
-          <div class="branch-card branch-meram">
-            <h3>📍 Meram Şubesi</h3>
-            <p>Hasanköy Cd. No:231, Bahçeşehir</p>
-            <p><a href="tel:05466619657">0546-661-9657</a></p>
-            <p>07:30 - 19:00</p>
-          </div>
-          <div class="branch-card branch-selcuklu">
-            <h3>📍 Selçuklu Şubesi</h3>
-            <p>Hoca Cihan Tekke Cd. No:175/F D:1</p>
-            <p><a href="tel:05466619657">0546-661-9657</a></p>
-            <p>07:30 - 19:00</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- ÜRÜNLER -->
-  <div id="urunler" class="page" style="display: none;">
-    <section class="catalog">
-      <div class="container">
-        <h2 class="section-title">Tüm Ürün Kataloğu</h2>
-
-        <div class="category">
-          <h3><i class="fas fa-hard-hat"></i> Alçı & Derz Ürünleri</h3>
-          <ul>
-            <li>Sıva Alçısı (Dalsan) – 25-35 kg</li>
-            <li>Saten Alçı (Dalsan) – 25 kg</li>
-            <li>Kartel Alçı (Dalsan) – 25 kg</li>
-            <li>Kalekim / Weber Alçı – 25 kg</li>
-            <li>Dekoratif Sıva – 25 kg</li>
-            <li>Derz Dolgu (Gri & Beyaz) – 20 kg</li>
-            <li>Cimonta Beyaz – 25 kg</li>
-            <li>Konya Cimonta – 50 kg</li>
-            <li>Kireç Alçı (Erciyes) – 25 kg</li>
-            <li>Karton Piyer Alçı – 25 kg</li>
-          </ul>
-        </div>
-
-        <div class="category">
-          <h3><i class="fas fa-water"></i> Kum & Agrega</h3>
-          <ul>
-            <li>Sıva Kum: 0.5 mm, 0.15 mm</li>
-            <li>Bulgaraj Kum, Mucur Kum</li>
-            <li>Yıkamış Sıva Kum</li>
-            <li>Doğal Sıva Kum</li>
-            <li>Beton Kum</li>
-          </ul>
-        </div>
-
-        <div class="category">
-          <h3><i class="fas fa-brick-wall"></i> Bims Blok</h3>
-          <ul>
-            <li>10’luk Bims</li>
-            <li>13,5’lik Bims</li>
-            <li>15’lik Bims</li>
-            <li>20’lik Bims</li>
-            <li>25’lik Bims</li>
-            <li>25’lik Asmolen</li>
-          </ul>
-        </div>
-
-        <div class="category">
-          <h3><i class="fas fa-truck"></i> Beton & Karışımlı</h3>
-          <ul>
-            <li>20’lik Beton Karışımlı</li>
-            <li>25’lik Beton Karışımlı</li>
-          </ul>
-        </div>
-
-        <div class="category">
-          <h3><i class="fas fa-temperature-low"></i> Yalıtım Ürünleri</h3>
-          <ul>
-            <li>Isı Yalıtım Şapı, Harcı, Levhası</li>
-            <li>Yalıtım Filesi (Hasır Tel)</li>
-            <li>Yalıtım Ankrajları</li>
-          </ul>
-        </div>
-
-        <div class="category">
-          <h3><i class="fas fa-tools"></i> Diğer İnşaat Malzemeleri</h3>
-          <ul>
-            <li>40’lık Kilitli Zımba</li>
-            <li>Kilitli Taş Çeşitleri</li>
-            <li>Hasır Tel</li>
-            <li>Alın Tahtası</li>
-            <li>OSB & Alçıpan</li>
-            <li>Kılavuz Tel & Plaka</li>
-          </ul>
-        </div>
-
-        <div style="text-align: center; margin-top: 50px;">
-          <a href="tel:05466619657" class="btn">
-            <i class="fas fa-phone"></i> 0546-661-9657 İle İletişime Geç
-          </a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- İLETİŞİM -->
-  <div id="iletisim" class="page" style="display: none;">
-    <section class="branches">
-      <div class="container">
-        <h2 class="section-title">İletişim & Şubeler</h2>
-        <div class="branch-grid">
-          <div class="branch-card branch-meram">
-            <h3>📍 Meram Şubesi</h3>
-            <p>Hasanköy Cd. No:231, Bahçeşehir</p>
-            <p><a href="tel:05466619657">0546-661-9657</a></p>
-            <p>07:30 - 19:00</p>
-          </div>
-          <div class="branch-card branch-selcuklu">
-            <h3>📍 Selçuklu Şubesi</h3>
-            <p>Hoca Cihan Tekke Cd. No:175/F D:1</p>
-            <p><a href="tel:05466619657">0546-661-9657</a></p>
-            <p>07:30 - 19:00</p>
-          </div>
-        </div>
-        <div style="text-align: center; margin-top: 50px;">
-          <a href="https://wa.me/905466619657" class="btn" target="_blank">
-            <i class="fab fa-whatsapp"></i> WhatsApp'tan Yaz
-          </a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- FOOTER -->
-  <footer>
-    <p>© 2025 Başkent Yapı Market</p>
-    <p>Konya'nın En Hızlı İnşaat Marketi</p>
-    <p><a href="tel:05466619657">0546-661-9657</a> | Meram & Selçuklu Şubeler</p>
-  </footer>
-
-  <!-- WHATSAPP BUTONU -->
-  <a href="https://wa.me/905466619657" class="whatsapp-float" target="_blank">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-
-  <!-- MOBİL ARAMA -->
-  <div class="mobile-call-fixed">
-    <a href="tel:05466619657">📞 0546-661-9657 HEMEN ARA</a>
-  </div>
-
-  <!-- JAVASCRIPT -->
-  <script>
-    // Yıldızlar oluştur
-    const stars = document.getElementById('stars');
-    for (let i = 0; i < 150; i++) {
-      const star = document.createElement('div');
-      star.classList.add('star');
-      star.style.width = Math.random() * 3 + 'px';
-      star.style.height = star.style.width;
-      star.style.left = Math.random() * 100 + 'vw';
-      star.style.top = Math.random() * 100 + 'vh';
-      star.style.opacity = Math.random();
-      star.style.animationDuration = Math.random() * 5 + 3 + 's';
-      stars.appendChild(star);
-    }
-
-    // Giriş ekranı
-    setTimeout(() => {
-      document.getElementById('splash')?.classList.add('fade-out');
-      setTimeout(() => document.getElementById('splash')?.remove(), 1000);
-    }, 2500);
-
-    // Sekmeler
-    document.querySelectorAll('.tab-link').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const tab = e.target.getAttribute('data-tab');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas Design | 2026 Ultimate Edition</title>
+    <!-- Sora Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        :root {
+            --bg: #050505;
+            --card: #0c0c0d;
+            --text: #ffffff;
+            --text-dim: #a1a1a6;
+            --accent: #008cff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.08);
+            --transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Sora', sans-serif; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg); color: var(--text); overflow: hidden; scroll-behavior: smooth; }
+
+        /* --- CINEMATIC SPLASH INTRO (4 SEC) --- */
+        #splash-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 10000;
+            display: flex; justify-content: center; align-items: center;
+            flex-direction: column; perspective: 1000px;
+        }
+        .splash-text {
+            font-size: clamp(2rem, 8vw, 6rem); font-weight: 800;
+            text-align: center; color: #fff;
+            position: relative; transform-style: preserve-3d;
+            animation: introReveal 4s forwards cubic-bezier(0.19, 1, 0.22, 1);
+            text-shadow: 0 0 30px rgba(0, 140, 255, 0.5);
+            letter-spacing: -2px;
+        }
+        .splash-sub {
+            font-size: 1rem; color: var(--accent); font-weight: 700;
+            letter-spacing: 15px; text-transform: uppercase; margin-top: 20px;
+            opacity: 0; animation: subReveal 2s 1.5s forwards ease-out;
+        }
         
-        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-        document.getElementById(tab).style.display = 'block';
+        @keyframes introReveal {
+            0% { opacity: 0; transform: translateZ(-500px) rotateX(45deg); filter: blur(20px); }
+            40% { opacity: 1; transform: translateZ(50px) rotateX(0deg); filter: blur(0px); }
+            70% { opacity: 1; transform: translateZ(100px) scale(1.1); filter: brightness(2); }
+            100% { opacity: 0; transform: translateZ(300px) scale(1.5); filter: blur(50px); }
+        }
+        @keyframes subReveal {
+            to { opacity: 0.6; transform: translateY(-10px); }
+        }
 
-        document.querySelectorAll('.tab-link').forEach(t => t.classList.remove('active'));
-        e.target.classList.add('active');
-      });
-    });
+        /* Explosion Particles */
+        .particle {
+            position: absolute; width: 2px; height: 2px; background: var(--accent);
+            border-radius: 50%; pointer-events: none;
+            animation: explode 4s infinite;
+        }
+        @keyframes explode {
+            0% { transform: translate(0,0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+        }
 
-    // Mobil menü
-    document.getElementById('mobileToggle').onclick = () => {
-      document.getElementById('mainNav').classList.toggle('active');
-    };
+        /* --- Main Content Reveal --- */
+        #main-site { opacity: 0; transform: scale(1.05); transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1); }
+        #main-site.loaded { opacity: 1; transform: scale(1); }
 
-    // İlk sayfa
-    document.getElementById('home').style.display = 'block';
-  </script>
+        /* --- Navbar --- */
+        nav {
+            position: fixed; top: 0; width: 100%; height: 52px;
+            background: rgba(var(--bg), 0.75); backdrop-filter: blur(30px);
+            display: flex; justify-content: center; align-items: center;
+            z-index: 1000; border-bottom: 1px solid var(--border);
+        }
+        .nav-content { width: 100%; max-width: 1024px; display: flex; justify-content: space-between; padding: 0 24px; }
+        .logo { font-weight: 800; font-size: 1.2rem; }
 
+        /* --- Hero Section --- */
+        .hero { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .title-3d { font-size: clamp(3rem, 10vw, 8rem); font-weight: 800; letter-spacing: -0.05em; line-height: 1.1; margin-bottom: 40px; }
+        .scramble-box { min-height: 1.25em; min-width: 350px; display: block; color: var(--accent); }
+
+        /* --- Bento Grid (The 8 Products) --- */
+        section { padding: 120px 5%; max-width: 1300px; margin: 0 auto; }
+        .bento-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 300px; gap: 24px; }
+        .bento-item {
+            background: var(--card); border-radius: 40px; padding: 48px;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            border: 1px solid var(--border); transition: var(--transition);
+            position: relative; overflow: hidden; background-size: cover; background-position: center;
+        }
+        .bento-item:hover { transform: translateY(-10px); filter: brightness(1.2); border-color: var(--accent); }
+        .bento-item i { position: absolute; top: 48px; left: 48px; font-size: 3rem; color: #fff; z-index: 2; }
+        .bento-item::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, transparent 30%, #000 100%); z-index: 1; }
+        .bento-item h3, .bento-item p { position: relative; z-index: 2; }
+
+        /* Images */
+        .img-w { background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1000'); }
+        .img-m { background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1000'); }
+        .img-e { background-image: url('https://images.unsplash.com/photo-1557821552-17105176677c?w=1000'); }
+        .img-d { background-image: url('https://images.unsplash.com/photo-1566576721346-d4a3b4eaad5b?w=1000'); }
+        .img-l { background-image: url('https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1000'); }
+        .img-g { background-image: url('https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=1000'); }
+        .img-3 { background-image: url('https://images.unsplash.com/photo-1614850523296-d8c1af93d400?w=1000'); }
+        .img-p { background-image: url('https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?w=1000'); }
+
+        .span-2 { grid-column: span 2; }
+        .row-2 { grid-row: span 2; }
+
+        /* --- 2026 Mirror HUD --- */
+        .showcase-area { display: flex; align-items: center; justify-content: center; gap: 80px; padding: 120px 5%; max-width: 1400px; margin: 0 auto; }
+        .iphone-2026 {
+            width: 320px; height: 660px; background: #000; border-radius: 64px;
+            border: 12px solid #1a1a1a; position: relative; overflow: hidden;
+            box-shadow: 0 50px 150px rgba(0,0,0,1); transition: 0.5s;
+        }
+        .hud-status {
+            padding: 10px 40px; display: flex; justify-content: space-between; align-items: center;
+            font-size: 11px; font-weight: 800; color: #fff; z-index: 10;
+            position: absolute; top: 0; left: 0; width: 100%;
+        }
+
+        .iphone-screen { width: 100%; height: 100%; background: #000; position: relative; overflow: hidden; }
+        .mirror-content {
+            width: 100%; position: absolute; top: 0; left: 0; padding: 80px 24px;
+            animation: mirrorScroll 20s infinite alternate ease-in-out;
+        }
+        @keyframes mirrorScroll { 0% { transform: translateY(0); } 100% { transform: translateY(-80%); } }
+
+        /* --- AI Assistant --- */
+        #ai-pill {
+            position: fixed; bottom: 35px; right: 35px;
+            padding: 14px 30px; background: rgba(0, 140, 255, 0.15);
+            backdrop-filter: blur(40px); border: 1px solid var(--border);
+            border-radius: 100px; display: flex; align-items: center; gap: 12px;
+            cursor: pointer; z-index: 1000; transition: 0.4s;
+        }
+        .ai-chat {
+            position: fixed; bottom: 100px; right: 35px; width: 380px; height: 500px;
+            background: #0c0c0d; border-radius: 32px; border: 1px solid var(--border);
+            display: none; flex-direction: column; z-index: 1000; box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+        }
+        .ai-chat.active { display: flex; }
+
+        /* --- Reveal --- */
+        .reveal { opacity: 0; transform: translateY(50px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .footer-cta { text-align: center; border-radius: 60px; padding: 120px 40px; border: 1px solid var(--border); background: radial-gradient(circle at top, rgba(0, 140, 255, 0.05), transparent); }
+        .btn-2026 { background: #fff; color: #000; padding: 20px 60px; border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 1.1rem; display: inline-block; transition: 0.3s; }
+
+    </style>
+</head>
+<body data-theme="onyx">
+
+    <!-- CINEMATIC SPLASH SCREEN (4 SEC) -->
+    <div id="splash-screen">
+        <div class="splash-text">
+            ATLAS'A<br><span style="color:var(--accent);">HOŞGELDİNİZ</span>
+        </div>
+        <div class="splash-sub">DİJİTAL GELECEK BAŞLIYOR</div>
+        <!-- Particle Container -->
+        <div id="particle-container" style="position: absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></div>
+    </div>
+
+    <div id="main-site">
+        <nav>
+            <div class="nav-content">
+                <div class="logo">Atlas Design.</div>
+                <div style="display: flex; gap: 40px; align-items: center;">
+                    <i class="ph ph-moon" style="cursor:pointer; opacity: 0.6;" id="themeToggle"></i>
+                    <a href="https://wa.me/905054315002" target="_blank" style="text-decoration: none; font-size: 0.85rem; font-weight: 800; color: var(--accent);">MİMARI DESTEK 2026</a>
+                </div>
+            </div>
+        </nav>
+
+        <section class="hero" id="home">
+            <div class="reveal">
+                <div style="font-size: 0.75rem; color: var(--accent); font-weight: 800; margin-bottom: 15px; letter-spacing: 5px;">2026 TEKNOLOJİ ÜSSÜ</div>
+                <h1 class="title-3d">Zekanın<br><span id="main-scramble" class="scramble-box">Tasarımı.</span></h1>
+                <p style="color: var(--text-dim); max-width: 800px; font-size: 1.4rem; margin-top: 20px;">Atlas 2026 ile standartların ötesine geçin. Sadece sitenizi değil, dijital geleceğinizi tasarlıyoruz.</p>
+            </div>
+        </section>
+
+        <!-- Product Showcase -->
+        <section class="showcase-area" id="about">
+            <div class="reveal" style="flex: 1.3;">
+                <p style="color: var(--accent); font-weight: 800; letter-spacing: 3px;">KUSURSUZ SENKRONİZASYON</p>
+                <h2 style="font-size: 4rem; font-weight: 800; letter-spacing: -3px; margin: 24px 0; line-height: 1;">Her Şey Canlı.</h2>
+                <p style="color: var(--text-dim); font-size: 1.3rem; margin-bottom: 40px;">Telefonda gördüğünüz veriler gerçektir. Ping, batarya ve içerik... Hepsi ana sitemizle tek bir ruh gibi çalışır.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                    <div style="display:flex; gap:15px; align-items:center;"><i class="ph ph-cpu" style="font-size:2.5rem; color:var(--accent);"></i><b>8 Bölümlü Sistem</b></div>
+                    <div style="display:flex; gap:15px; align-items:center;"><i class="ph ph-activity" style="font-size:2.5rem; color:var(--accent);"></i><b>Gerçek Zamanlı HUD</b></div>
+                </div>
+            </div>
+            <div class="reveal" style="flex: 0.7; display: flex; justify-content: center;">
+                <div class="iphone-2026">
+                    <div class="hud-status">
+                        <span id="liveClock">00:00</span>
+                        <span style="color:var(--accent); font-family:monospace;" id="pingData">Ping: 12ms</span>
+                        <span id="batteryPct">100%</span>
+                    </div>
+                    <div class="iphone-screen">
+                        <div class="mirror-content">
+                            <h3 style="font-size:30px; font-weight:800; margin-bottom:10px;">Atlas.</h3>
+                            <span id="mini-scramble" style="font-size:15px; font-weight:800; color:var(--accent);">Senkronize...</span>
+                            <div class="mini-img" style="height:140px; border-radius:24px; background-image:url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=500'); background-size:cover; margin:30px 0;"></div>
+                            <div class="mini-img" style="height:140px; border-radius:24px; background-image:url('https://images.unsplash.com/photo-1557821552-17105176677c?w=500'); background-size:cover;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8 PRODUCTS -->
+        <section id="services">
+            <h2 style="text-align:center; font-size:4rem; font-weight:800; margin-bottom:80px; letter-spacing:-3px;">Ürün Gruplarımız.</h2>
+            <div class="bento-grid">
+                <div class="bento-item span-2 row-2 img-w reveal">
+                    <i class="ph ph-browsers"></i>
+                    <h3>Web Tasarım</h3>
+                    <p>Kurumsal ve lüks web mimarisi.</p>
+                </div>
+                <div class="bento-item span-2 img-m reveal">
+                    <i class="ph ph-device-mobile"></i>
+                    <h3>Mobil Uygulama</h3>
+                    <p>Güçlü iOS ve Android çözümleri.</p>
+                </div>
+                <div class="bento-item img-e reveal">
+                    <i class="ph ph-shopping-bag"></i>
+                    <h3>E-Ticaret</h3>
+                    <p>Satış odaklı modern mağazalar.</p>
+                </div>
+                <div class="bento-item img-d reveal">
+                    <i class="ph ph-rocket"></i>
+                    <h3>Dropshipping</h3>
+                    <p>Sınır tanımayan ticaret sistemleri.</p>
+                </div>
+                <div class="bento-item span-2 img-l reveal">
+                    <i class="ph ph-scribble-loop"></i>
+                    <h3>Logo Tasarım</h3>
+                    <p>Markanızın eşsiz kimliği.</p>
+                </div>
+                <div class="bento-item img-g reveal">
+                    <i class="ph ph-paint-brush-broad"></i>
+                    <h3>Grafik Tasarım</h3>
+                    <p>Profesyonel görsel yönetim.</p>
+                </div>
+                <div class="bento-item img-3 reveal">
+                    <i class="ph ph-cube"></i>
+                    <h3>3D Tasarım</h3>
+                    <p>Gerçekçi 3D modelleme.</p>
+                </div>
+                <div class="bento-item span-2 img-p reveal">
+                    <i class="ph ph-gift"></i>
+                    <h3>Promosyon</h3>
+                    <p>Markanıza özel lüks hediyeler.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="footer-cta reveal">
+                <h2>Bize Katılın.</h2>
+                <p style="color:var(--text-dim); margin: 30px 0 50px; font-size:1.3rem;">Geleceği bugünden kurgulayalım.<br>0505 431 50 02</p>
+                <a href="https://wa.me/905054315002" class="btn-2026">WhastsApp Mesajı Gönder</a>
+            </div>
+        </section>
+
+        <div id="ai-pill">
+            <i class="ph-fill ph-sparkle"></i>
+            <span>Atlas Siri 2026</span>
+        </div>
+
+        <div class="ai-chat" id="aiChat">
+            <div style="padding:25px; border-bottom:1px solid var(--border); font-weight:800; display:flex; justify-content:space-between;">
+                <span>2026 Akıllı Asistan</span>
+                <i class="ph ph-x" id="closeChat" style="cursor:pointer;"></i>
+            </div>
+            <div class="chat-msgs" id="chatMsgs" style="flex:1; padding:25px; overflow-y:auto; display:flex; flex-direction:column; gap:15px;">
+                <div class="msg msg-ai">Merhaba! Atlas 2026 dünyasına hoş geldin. Sana nasıl yardımcı olabilirim?</div>
+            </div>
+            <div style="padding:20px; border-top:1px solid var(--border); display:flex; gap:10px;">
+                <input type="text" id="aiInput" placeholder="Mesaj yazın..." style="flex:1; background:transparent; border:none; color:#fff; outline:none;">
+                <i class="ph ph-paper-plane-right" onclick="sendMsg()" style="color:var(--accent); cursor:pointer;"></i>
+            </div>
+        </div>
+
+        <footer style="padding: 80px 0; text-align: center; color: var(--text-dim); font-size: 0.85rem; opacity: 0.5;">
+            &copy; 2026 Atlas Design Global. Tüm Hakları Saklıdır.
+        </footer>
+    </div>
+
+    <script>
+        // --- SPLASH AND PARTICLE LOGIC ---
+        window.addEventListener('load', () => {
+            const container = document.getElementById('particle-container');
+            for(let i=0; i<100; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = '50%'; p.style.top = '50%';
+                p.style.setProperty('--x', (Math.random() - 0.5) * 1000 + 'px');
+                p.style.setProperty('--y', (Math.random() - 0.5) * 1000 + 'px');
+                p.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(p);
+            }
+            
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('main-site').classList.add('loaded');
+                document.body.style.overflowY = 'auto';
+                next(); // Start Scramble
+            }, 4000);
+        });
+
+        // --- TEXT SCRAMBLE ENGINE ---
+        class TextScramble {
+            constructor(el) {
+                this.el = el;
+                this.chars = '!<>-_\\/[]{}—=+*^?#________';
+                this.update = this.update.bind(this);
+            }
+            setText(newText) {
+                const oldText = this.el.innerText;
+                const length = Math.max(oldText.length, newText.length);
+                const promise = new Promise((resolve) => this.resolve = resolve);
+                this.queue = [];
+                for (let i = 0; i < length; i++) {
+                    const from = oldText[i] || '';
+                    const to = newText[i] || '';
+                    const start = Math.floor(Math.random() * 40);
+                    const end = start + Math.floor(Math.random() * 40);
+                    this.queue.push({ from, to, start, end });
+                }
+                cancelAnimationFrame(this.frameRequest);
+                this.frame = 0;
+                this.update();
+                return promise;
+            }
+            update() {
+                let output = '';
+                let complete = 0;
+                for (let i = 0, n = this.queue.length; i < n; i++) {
+                    let { from, to, start, end, char } = this.queue[i];
+                    if (this.frame >= end) { complete++; output += to; }
+                    else if (this.frame >= start) {
+                        if (!char || Math.random() < 0.28) {
+                            char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                            this.queue[i].char = char;
+                        }
+                        output += `<span style="color:var(--accent)">${char}</span>`;
+                    } else { output += from; }
+                }
+                this.el.innerHTML = output;
+                if (complete === this.queue.length) { this.resolve(); }
+                else { this.frameRequest = requestAnimationFrame(this.update); this.frame++; }
+            }
+        }
+
+        const phrases = ['Geleceğin Standartı.', '8 Ürün, Tek Vizyon.', 'Mobilin Geleceği.', 'E-Ticaret Devrimi.', 'Zekanın Tasarımı.'];
+        const mainFx = new TextScramble(document.getElementById('main-scramble'));
+        const miniFx = new TextScramble(document.getElementById('mini-scramble'));
+
+        let counter = 0;
+        const next = () => {
+            const text = phrases[counter];
+            if(mainFx.el) mainFx.setText(text);
+            if(miniFx.el) miniFx.setText(text);
+            counter = (counter + 1) % phrases.length;
+            setTimeout(next, 3500);
+        };
+
+        // --- DEVICE SYNC ---
+        async function sync() {
+            const clockEl = document.getElementById('liveClock');
+            function up() {
+                const now = new Date();
+                clockEl.innerText = now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
+                document.getElementById('pingData').innerText = `Ping: ${Math.floor(Math.random()*5)+7}ms`;
+            }
+            setInterval(up, 1000); up();
+            try {
+                if ('getBattery' in navigator) {
+                    const b = await navigator.getBattery();
+                    const ub = () => { document.getElementById('batteryPct').innerText = Math.round(b.level*100) + '%'; };
+                    ub(); b.addEventListener('levelchange', ub);
+                }
+            } catch (e) {}
+        }
+        sync();
+
+        // --- AI ---
+        const pill = document.getElementById('ai-pill');
+        const chat = document.getElementById('aiChat');
+        pill.onclick = () => chat.classList.toggle('active');
+        document.getElementById('closeChat').onclick = () => chat.classList.remove('active');
+        function sendMsg() {
+            const input = document.getElementById('aiInput');
+            const msgs = document.getElementById('chatMsgs');
+            if(!input.value) return;
+            msgs.innerHTML += `<div class="msg msg-user">${input.value}</div>`;
+            const val = input.value.toLowerCase(); input.value = '';
+            msgs.scrollTop = msgs.scrollHeight;
+            setTimeout(() => {
+                let r = "2026 teknolojileri hakkında detaylı bilgi için 0505 431 50 02 numaramızdan bizimle iletişime geçebilirsiniz.";
+                if(val.includes('merhaba')) r = "Selam! Atlas 2026 evrenine hoş geldin.";
+                msgs.innerHTML += `<div class="msg msg-ai">${r}</div>`;
+                msgs.scrollTop = msgs.scrollHeight;
+            }, 600);
+        }
+
+        // --- REVEAL ---
+        const obs = new IntersectionObserver((es) => {
+            es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
 </body>
 </html>
